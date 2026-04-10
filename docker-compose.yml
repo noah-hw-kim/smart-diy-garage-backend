@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: garage-db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: smart_diy_garage
+      POSTGRES_USER: ${DB_USERNAME:-garage_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-garage_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

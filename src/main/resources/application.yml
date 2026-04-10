@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: smart-diy-garage-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}

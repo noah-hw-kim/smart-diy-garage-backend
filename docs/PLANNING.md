@@ -88,19 +88,19 @@ This chain is enforced at the **Service Layer**, not the Controller or Repositor
 
 ## 🗓️ Build Phases
 
-### Phase 0: Project Bootstrap *(Current)*
-- [ ] Initialize Spring Boot project via Spring Initializr
-- [ ] Configure `application.yml` (local + prod profiles)
-- [ ] Set up `docker-compose.yml` for local PostgreSQL
-- [ ] Configure Flyway for database migrations
-- [ ] Set up `.env.example` and `.gitignore`
-- [ ] Create GitHub repository and push initial commit
+### Phase 0: Project Bootstrap *(Done)*
+- [x] Initialize Spring Boot project via Spring Initializr
+- [x] Configure `application.yml` (local + prod profiles)
+- [x] Set up `docker-compose.yml` for local PostgreSQL
+- [x] Configure Flyway for database migrations
+- [x] Set up `.env.example` and `.gitignore`
+- [x] Create GitHub repository and push initial commit
 
 **Exit Criteria:** Application starts locally, connects to PostgreSQL, Flyway runs V1 migration.
 
 ---
 
-### Phase 1: Core Domain — CRUD Features
+### Phase 1: Core Domain — CRUD Features *(Current)*
 
 **Goal:** Build all three domain entities with full CRUD. No security yet.
 
