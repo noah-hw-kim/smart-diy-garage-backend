@@ -1,12 +1,12 @@
 # 📋 Project Planning — Smart DIY Garage Backend
 
-> Internal development roadmap. Tracks architectural decisions, build phases, and learning milestones.
+> Internal development roadmap. Tracks architectural decisions, build phases, and technical strategy.
 
 ---
 
 ## 🧠 Architectural Decision Log (ADL)
 
-These are the *why* behind every major decision. Understanding these will help you answer interview questions.
+Records the rationale behind key design choices made in this project.
 
 ### ADL-001: Package-by-Feature over Package-by-Layer
 
@@ -25,9 +25,8 @@ These are the *why* behind every major decision. Understanding these will help y
 
 | | Auto-Increment Long | UUID ✅ |
 |---|---|---|
-| Security | `vehicle/1` is guessable | `vehicle/a3f8...` is opaque |
-| Distribution | Hard to merge across systems | Globally unique |
-| Resume signal | Basic | Shows security awareness |
+| Security | Resource IDs are enumerable and guessable | Opaque, non-enumerable identifiers |
+| Distribution | Collisions likely across distributed systems | Globally unique by design |
 
 **Decision:** UUID v4 for all entity PKs. Required for any SaaS with user-owned resources.
 
@@ -52,14 +51,12 @@ These are the *why* behind every major decision. Understanding these will help y
 
 ---
 
-### ADL-005: DTOs (Data Transfer Objects) using Java Records
+### ADL-005: DTOs using Java Records
 
-- **Never expose your JPA Entity directly in an API response.** Entities contain password hashes, internal IDs, and lazy-loaded proxies that cause serialization errors.
-- **DTOs** are clean, immutable contracts between your API and callers.
-- Java 21 **Records** are perfect for DTOs: immutable, concise, auto-generates `equals`, `hashCode`, `toString`.
+- API responses use dedicated DTO types rather than JPA entities. This decouples the API contract from the persistence model, prevents accidental exposure of sensitive fields, and avoids lazy-loading serialization issues.
+- Java 21 Records are used for all DTOs: they are immutable, concise, and require no boilerplate.
 
 ```java
-// Clean. Immutable. No boilerplate.
 public record VehicleResponse(UUID id, String make, String model, int year, int mileage) {}
 ```
 
@@ -209,48 +206,4 @@ Internet → EC2 (t2.micro, free tier)
 
 ---
 
-## 📚 Learning Checkpoints
-
-Use these questions to self-assess before moving to the next phase.
-
-### Before Phase 1
-- [ ] Can you explain Authentication vs. Authorization with a concrete example from this app?
-- [ ] What is the N+1 problem and how does `LAZY` loading help?
-- [ ] Why do we use DTOs instead of returning JPA entities from controllers?
-- [ ] What is Flyway and why is it better than `spring.jpa.hibernate.ddl-auto=create`?
-
-### Before Phase 2
-- [ ] What is inside a JWT? What are the three parts?
-- [ ] What does the `SecurityContext` hold and how is it populated?
-- [ ] What HTTP status code should an expired token return vs. a valid token accessing the wrong resource?
-
-### Before Phase 3
-- [ ] What is the difference between a Security Group's inbound and outbound rules?
-- [ ] Why should RDS never be in a public subnet?
-- [ ] What does a `Dockerfile` do vs. a `docker-compose.yml`?
-
-### Before Phase 4
-- [ ] What is the difference between CI and CD?
-- [ ] Why should AWS credentials never be hardcoded in `.yml` files?
-
----
-
-## 🔑 Key Vocabulary (Cheat Sheet)
-
-| Term | What It Means |
-|------|---------------|
-| JWT | JSON Web Token — a signed, self-contained auth token |
-| JPA | Java Persistence API — the standard for ORM in Java |
-| ORM | Object-Relational Mapping — maps Java classes to DB tables |
-| DTO | Data Transfer Object — an immutable API contract, not an entity |
-| Flyway | A DB migration tool — keeps schema changes version-controlled |
-| Testcontainers | Spins up a real Docker PostgreSQL for integration tests |
-| BCrypt | A password hashing algorithm — never store plaintext passwords |
-| SecurityContext | Spring's thread-local holder for the currently authenticated user |
-| LAZY | Load related data only on demand, not automatically |
-| EAGER | Load ALL related data immediately — the N+1 trap |
-| N+1 Problem | 1 query to get N records, then N more queries for each record's relations |
-
----
-
-*Last Updated: April 2026 | Author: @orrijoa*
+*Last Updated: April 2026 | Author: @noah-hw-kim*
