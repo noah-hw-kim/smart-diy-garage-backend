@@ -1,0 +1,98 @@
+# ============================================================
+# Smart DIY Garage Backend — .gitignore
+# Java 21 | Spring Boot | Maven | IntelliJ | VS Code | AWS
+# ============================================================
+
+# --------------------------
+# Maven build output
+# --------------------------
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# --------------------------
+# Environment & Secrets — NEVER commit these
+# --------------------------
+.env
+.env.*
+!.env.example
+application-local.yml
+application-local.yaml
+application-prod.yml
+application-prod.yaml
+
+# --------------------------
+# IDE — IntelliJ IDEA
+# --------------------------
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# --------------------------
+# IDE — VS Code
+# --------------------------
+.vscode/
+!.vscode/extensions.json
+
+# --------------------------
+# IDE — Eclipse
+# --------------------------
+.classpath
+.project
+.settings/
+
+# --------------------------
+# OS generated files
+# --------------------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# --------------------------
+# Log files
+# --------------------------
+*.log
+logs/
+spring.log
+
+# --------------------------
+# Docker
+# --------------------------
+# Keep Dockerfile and docker-compose.yml tracked
+# Ignore any local override files
+docker-compose.override.yml
+
+# --------------------------
+# AWS / Cloud credentials
+# --------------------------
+*.pem
+*.key
+*.p12
+.aws/
+
+# --------------------------
+# Compiled class files
+# --------------------------
+*.class
+
+# --------------------------
+# Package files
+# --------------------------
+*.jar
+*.war
+*.ear
+# But keep the Maven wrapper jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# --------------------------
+# Test reports (generated, not source)
+# --------------------------
+/test-results/
+/surefire-reports/
